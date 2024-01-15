@@ -1,0 +1,141 @@
+\documentclass[11pt]{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts, amssymb, amsmath, amsthm, booktabs, hyperref, pgfplots, tikz, xcolor}
+
+\theoremstyle{definition}\newtheorem{definition}{Definition}
+\theoremstyle{definition}\newtheorem{notation}{Notation}
+\theoremstyle{definition}\newtheorem{example}{Example}
+\theoremstyle{theorem}\newtheorem{theorem}{Theorem}
+\theoremstyle{theorem}\newtheorem{corollary}{Corollary}
+\theoremstyle{theorem}\newtheorem{proposition}{Proposition}
+\theoremstyle{theorem}\newtheorem{lemma}{Lemma}
+\theoremstyle{theorem}\newtheorem{question}{Question}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CC}{\mathcal{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\renewcommand{\SS}{\mathcal{S}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\teq}{\trianglelefteq}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Span}{span}
+
+\title{MATH 3022 Algebra II: Lecture 1}
+\author{Joe Tran}
+\date{Winter 2024}
+
+\everymath{\displaystyle}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+\begin{document}
+
+\textbf{MATH 4271 Dynamical Systems} \hfill \textbf{Lecture 2} \\
+\textsc{Lecture} \hfill \textsc{Joe Tran}
+
+\textbf{Recall:} Given $\frac{d\vec{x}}{dt} = A\vec{x}$, we defined, for $n = 2$, the \emph{uncoupled} system given by, for example,
+\begin{equation*}
+    \begin{cases}
+        \frac{dx_1}{dt} = a_1 x_1 \\
+        \frac{dx_2}{dt} = a_2 x_2
+    \end{cases}
+\end{equation*}
+and we can write it as
+\begin{equation*}
+    \begin{bmatrix} \frac{dx_1}{dt} \\ \frac{dx_2}{dt} \end{bmatrix} = \begin{bmatrix} a_1 & 0 \\ 0 & a_2 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+\end{equation*}
+or write $\diag(a_1, a_2) = \begin{bmatrix} a_1 & 0 \\ 0 & a_2 \end{bmatrix}$.  To solve the system of ODEs, we would have to use method of separation of variables.
+
+On the other hand, we can also consider \emph{coupled} system. Consider $\frac{d\vec{x}}{dt} = A\vec{x}$ and assume that $\vec{x}(t) = \vec{v}e^{\lambda t}$ for nonzero vectors $\vec{v}$. Then we obtain that
+\begin{equation*}
+    (A - \lambda I_n)\vec{v} = \vec{0}
+\end{equation*}
+In this case, $\det(A - \lambda I_n) = 0$ gives the eigenvalues of the matrix $A$, which determines that we have nontrivial solutions.
+
+\begin{definition}\label{definition:1}
+    A vector $\vec{v}$ is called an \emph{eigenvalue} corresponding to the eigenvalue $\lambda \in \K$, if $\lambda \vec{v} = A\vec{v}$.
+\end{definition}
+
+\begin{definition}\label{definition:2}
+    The equation $\chi_A(\lambda) = \det(A - \lambda I_n)$ is called the characteristic polynomial of $A$.
+\end{definition}
+
+\begin{remark}\label{remark:1}
+    If $\vec{v} \neq \vec{0}$ is an eigenvector of $A$ corresponding to an eigenvalue $\lambda \in \K$, then $\vec{x}(t) = \vec{v}e^{\lambda t}$ is a nontrivial solution of the homogeneous equation $\frac{d\vec{x}}{dt} = A\vec{x}$.
+\end{remark}
+
+To find the general solution, we require linearly independent vectors such that the form of the solution space (or vector space), we consider the following cases.
+
+\underline{Case 1.} Assume that $A$ is an $n \times n$ matrix that has real and distinct entries. Then $\lambda_j \in \R$ for all $j = 1, 2,..., n$ and $j \neq k$. Then we have $n$ linearly independent eigenvectors, $\vec{v}_j$ for all $j = 1, 2,..., n$ and $j \neq k$. Then
+\begin{equation*}
+    \vec{x}_j(t) = \vec{v}_je^{\lambda_j t}
+\end{equation*}
+are solutions of the system of ODEs. Then we have linearly independent solution $\vec{x}_j(t)$ for each $j$. Therefore, the general solution of $\frac{d\vec{x}}{dt} = A\vec{x}$ is
+\begin{equation*}
+    \vec{x}(t) = \sum_{j = 1}^{n} c_j \vec{v}_j e^{\lambda_jt}
+\end{equation*}
+where $c_j$ are arbitrary real constants, but not all are zero.
+
+\underline{Special Case.} Assume that $A$ is a $2 \times 2$ system of ordinary differential equations. Then we have $\lambda_1, \lambda_2 \in \R$ such that $\lambda_1 \neq \lambda_2$, are eigenvalues of $A$. Then the general solution of $\frac{d\vec{x}}{dt} = A\vec{x}$ is
+\begin{equation*}
+    \vec{x}(t) = c_1 \vec{v}_1e^{\lambda_1 t} + c_2\vec{v}_2 e^{\lambda_2 t}
+\end{equation*}
+where $c_1, c_2 \in \R$ but not both zero.
+
+\begin{example}
+    Solve
+    \begin{align*}
+        \frac{dx_1}{dt} &= x_1 + 2x_2 \\
+        \frac{dx_2}{dt} &= 2x_1 + x_2
+    \end{align*}
+\end{example}
+
+To find the eigenvalues, observe that
+\begin{align*}
+    \det(A - \lambda I_n) = \det\left(\begin{bmatrix}
+        1 - \lambda & 2 \\
+        2 & 1 - \lambda
+    \end{bmatrix}\right) &= (1 - \lambda)^2 - 4 \\
+    &= (1 - \lambda - 2)(1 - \lambda + 2) \\
+    &= (-\lambda- 1)(-\lambda + 3) \\
+    &= (\lambda + 1)(\lambda - 3) = 0
+\end{align*}
+So we have $\lambda = -1$ or $\lambda = 3$. Because our matrix is a $2 \times 2$, and we have two distinct eigenvalues, we would expect two distinct eigenvectors. We find the eigenspaces as follows: For $\lambda = -1$,
+\begin{equation*}
+    \E_A(-1) = \ker\left\{\begin{bmatrix} 1 - (-1) & 2 \\ 2 & 1 - (-1) \end{bmatrix}\right\} = \ker\left\{\begin{bmatrix} 2 & 2 \\ 2 & 2 \end{bmatrix}\right\} = \ker\left\{\begin{bmatrix} 1 & 1 \\ 0 & 0 \end{bmatrix}\right\} = \left\{\begin{bmatrix} -1 \\ 1 \end{bmatrix}\right\}
+\end{equation*}
+So an eigenvector of the eigenspace is $\vec{v}_1 = \begin{bmatrix} -1 \\ 1 \end{bmatrix}$. Now for $\lambda = 3$,
+\begin{equation*}
+    \E_A(3) = \ker\left\{\begin{bmatrix} 1 - 3 & 2 \\ 2 & 1 - 3 \end{bmatrix}\right\} = \ker\left\{\begin{bmatrix} -2 & 2 \\ 2 & -2 \end{bmatrix}\right\} = \ker\left\{\begin{bmatrix} 1 & -1 \\ 0 & 0 \end{bmatrix}\right\} = \left\{\begin{bmatrix} 1 \\ 1 \end{bmatrix}\right\}
+\end{equation*}
+So an eigenvector of the eigenspace is $\vec{v}_2 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$. Our eigenvectors are $\left\{\begin{bmatrix} -1 \\ 1 \end{bmatrix}, \begin{bmatrix} 1 \\ 1 \end{bmatrix}\right\}$, and therefore, the general solution is
+\begin{equation*}
+    \vec{x}(t) = c_1\begin{bmatrix} 1 \\ 1 \end{bmatrix}e^{-t} + c_2\begin{bmatrix} -1 \\ 1 \end{bmatrix}e^{3t} = \begin{bmatrix} c_1e^{-t} - c_2e^{3t} \\ c_1e^{-t} + c_2e^{3t} \end{bmatrix}
+\end{equation*}
+as desired.
+
+\underline{Case 2.} Real but repeated roots. Assume that $A$ is an $n \times n$ matrix with $\lambda_j \in \R$, where $j = 1,..., n$ with $\lambda$ has algebraic multiplicity of $m$. Corresponding to the repeated eigenvalues $\lambda$, $A$ may have $n$ linearly independent eigenvectors or one or many (less than $n$) linearly independent eigenvectors.
+\begin{itemize}
+    \item \underline{Subcase 1.} Repeated root has $n$ linearly independent eigenvectors given by $\vec{v}_1, \vec{v}_2,..., \vec{v}_n$. Then the general solution is
+    \begin{equation*}
+        \vec{x}(t) = \sum_{j = 1}^{n} c_j \vec{v}_j e^{\lambda_j t}
+    \end{equation*}
+    \item \underline{Subcase 2.} If $A$ has one or many (less than $n$) linearly independent eigenvectors, then
+    \begin{equation*}
+        \vec{x}(t) = \sum_{j = 1}^{n} c_j t^{j - 1}e^{\lambda t}
+    \end{equation*}
+\end{itemize}
+
+\end{document}
