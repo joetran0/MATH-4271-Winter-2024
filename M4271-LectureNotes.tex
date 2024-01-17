@@ -1,0 +1,485 @@
+\documentclass[11pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts, amssymb, amsmath, amsthm, booktabs, hyperref, pgfplots, tikz, xcolor, mathrsfs, multicol, array}
+\usepackage{makeidx}
+
+\theoremstyle{definition}\newtheorem{definition}[subsection]{Definition}
+\theoremstyle{definition}\newtheorem{example}[subsection]{Example}
+\theoremstyle{definition}\newtheorem{notation}[subsection]{Notation}
+\theoremstyle{definition}\newtheorem{remark}[subsection]{Remark}
+\theoremstyle{theorem}\newtheorem{theorem}[subsection]{Theorem}
+\theoremstyle{theorem}\newtheorem{lemma}[subsection]{Lemma}
+\theoremstyle{theorem}\newtheorem{proposition}[subsection]{Proposition}
+\theoremstyle{theorem}\newtheorem{corollary}[subsection]{Corollary}
+\theoremstyle{theorem}\newtheorem{case}{Case}
+\theoremstyle{remark}\newtheorem{subcase}{Subcase}[case]
+
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CC}{\mathcal{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\RR}{\mathcal{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\renewcommand{\H}{\mathbb{H}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\TT}{\mathcal{T}}
+\newcommand{\teq}{\trianglelefteq}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Span}{span}
+
+\title{\textbf{MATH 4271: Dynamical Systems}}
+\author{Joe Tran}
+\date{\today}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\makeindex
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Linear Systems of ODEs}
+
+This chapter presents a study of linear systems of ordinary differential equations of the form
+\begin{equation*}
+    \frac{d\vec{x}}{dt} = A\vec{x}
+\end{equation*}
+where $\vec{x} \in \R^n$, $A$ is an $n \times n$ matrix, and
+\begin{equation*}
+    \frac{d\vec{x}}{dt} = \begin{bmatrix} \frac{dx_1}{dt} \\ \frac{dx_2}{dt} \\ \vdots \\ \frac{dx_n}{dt} \end{bmatrix}
+\end{equation*}
+
+It is shown that the solution of the linear system above together with the initial condition $\vec{x}(0) = \vec{x}_0$, is given by
+\begin{equation*}
+    \vec{x}(t) = \vec{x}_0 e^{At}
+\end{equation*}
+where $e^{At}$ is an $n \times n$ matrix defined by its Taylor series. A good portion of this chapter is concerned with the computation of the matrix $e^{At}$ in terms of the eigenvalues and eigenvectors of the square matrix $A$.
+
+\section{Uncoupled Linear Systems}
+
+The method of separation of variables can be used to solve the first-order linear differential equation
+\begin{equation*}
+    \frac{dx}{dt} = ax
+\end{equation*}
+where the general solution is given as
+\begin{equation*}
+    x(t) = ce^{at}
+\end{equation*}
+where $c = x(0)$, the value of the function $x(t)$ at time $t = 0$.
+
+Now consider the uncoupled linear system
+\begin{align*}
+    \frac{dx_1}{dt} &= -x_1 \\
+    \frac{dx_2}{dt} &= 2x_2
+\end{align*}
+This system can be written in matrix form as
+\begin{equation*}
+    \frac{d\vec{x}}{dt} = A\vec{x}
+\end{equation*}
+where $A = \begin{bmatrix} -1 & 0 \\ 0 & 2 \end{bmatrix}$. Note that in this case, $A$ is a diagonal matrix, i.e. $A = \diag(-1, 2)$, and in general, whenever $A$ is a diagonal matrix, the system reduces to an uncoupled linear system. The general solution of the above uncoupled linear system can be found by the method of separation of variables. It is given by
+\begin{align*}
+    x_1(t) &= c_1e^{-t} \\
+    x_2(t) &= c_2e^{2t}
+\end{align*}
+or equivalently,
+\begin{equation*}
+    \vec{x}(t) = \begin{bmatrix} e^{-t} & 0 \\ 0 & e^{2t} \end{bmatrix} \vec{c}
+\end{equation*}
+where $\vec{c} = \vec{x}(0)$. The solution defines a motion along these curves. That is, each $\vec{c} \in \R^2$ moves to a point $\vec{x}(t) \in \R^2$ after time $t$. These motions can be described geometrically by drawing the solution curves in the $x_1x_2$-plane, which we refer to as the \emph{phase plane}, and using arrows to indicate the direction of motion along these curves with increasing time $t$.
+
+For $c_1 = c_2 = 0$, $x_1(t) = 0$ and $x_2(t) = 0$ for all $t \in \R$, and the origin is referred to as an \emph{equilibrium point} in this example. Note that solutions starting on the $x_1$-axis approach the origin as $t \to \infty$, and that solutions starting on the $x_2$-axis approach the origin as $t \to -\infty$.
+
+The \emph{phase portrait} of a system of differential equations with $\vec{x} \in \R^n$ is the set of all solution curves of $\frac{d\vec{x}}{dt} = A\vec{x}$ in the phase space $\R^n$. The above figure provides a geometric representation of the phase portrait of the uncoupled linear system as described above.
+
+The \emph{dynamical system} defined by the linear system $\frac{d\vec{x}}{dt} = A\vec{x}$ in this example is simply the mapping $\phi : \R \times \R^2 \to \R^2$ defined by the solution $\vec{x}(t, \vec{c})$ given by
+\begin{equation*}
+    \vec{x}(t) = \begin{bmatrix} e^{-t} & 0 \\ 0 & e^{2t} \end{bmatrix} \vec{c}
+\end{equation*}
+That is,
+\begin{equation*}
+    \phi(t, \vec{c}) = \begin{bmatrix} e^{-t} & 0 \\ 0 & e^{2t} \end{bmatrix} \vec{c}
+\end{equation*}
+Geometrically, the dynamical system describes the motion of the points in phase space along the solution curves defined by the system of differential equations.
+
+The function
+\begin{equation*}
+    \vec{f}(\vec{x}) = A\vec{x}
+\end{equation*}
+on the right hand side of $\frac{d\vec{x}}{dt} = A\vec{x}$ defines a mapping $\vec{f} : \R^2 \to \R^2$ (linear in this case). This mapping (which need not be linear) defines a \emph{vector field} on $\R^2$, i.e. to each point $\vec{x} \in \R^2$, the mapping $\vec{f}$ assigns a vector $\vec{f}(\vec{x})$.
+
+Now let us consider the following uncoupled linear system in $\R^3$,
+\begin{align*}
+    \frac{dx}{dt} &= x \\
+    \frac{dy}{dt} &= y \\
+    \frac{dz}{dt} &= -z
+\end{align*}
+The general solution is given by
+\begin{align*}
+    x(t) &= c_1e^t \\
+    y(t) &= c_2e^t \\
+    z(t) &= c_3e^{-t}
+\end{align*}
+
+The $xy$-plane is referred to as the \emph{unstable subspace} of the system and the $z$-axis is called the \emph{stable subspace} of the system.
+
+\section{Eigenvalue-Eigenvector Method}
+
+As we know, the solution of a linear system constitutes a linear space and the solution is formed by the eigenvectors of the matrix. There may have four possibilities according to the eigenvalues and eigenvectors of matrix $A$. We will proceed case by case.
+
+\begin{case}
+    If the eigenvalues of $A$ are real and distinct.
+\end{case}
+
+If the coefficient matrix $A$ has real and distinct eigenvalues, then it has linearly independent eigenvectors. Let $\vec{v}_1$, $\vec{v}_2$,..., $\vec{v}_n$ represent the eigenvectors corresponding to the eigenvalues $\lambda_1$, $\lambda_2$,..., $\lambda_n$ of matrix $A$. Then each $\vec{x}_j(t) = \vec{v}_je^{\lambda_j t}$ for $j = 1, 2,..., n$ is a solution of $\frac{d\vec{x}}{dt} = A\vec{x}$. The general solution is a linear combination of the solutions $\vec{x}_j(t)$ and is given by
+\begin{equation*}
+    \vec{x}(t) = \sum_{j = 1}^{n} c_j\vec{x}_j(t) = \sum_{j = 1}^{n} c_j \vec{v}_je^{\lambda_j t}
+\end{equation*}
+where $c_1, c_2,..., c_n$ are arbitrary constants. For the case when $n = 2$, the solution can be written as
+\begin{equation*}
+    \vec{x}(t) = c_1\vec{v}_1e^{\lambda_1 t} + c_2\vec{v}_2e^{\lambda_2 t}
+\end{equation*}
+
+\begin{case}
+    If the eigenvalues of $A$ are real, but some of which are repeated.
+\end{case}
+
+In this case, the matrix $A$ may have either $n$ linearly independent eigenvectors, or only one or many (less than $n$) linearly independent eigenvectors corresponding to the repeated eigenvalues. The generalized eigenvectors have been used for linearly independent eigenvectors. We discuss this case in the following two subcases.
+
+\begin{subcase}
+    If the matrix $A$ has linearly independent vectors.
+\end{subcase}
+
+Let $\vec{v}_1, \vec{v}_2,..., \vec{v}_n$ be $n$ linearly independent eigenvectors corresponding to the repeated real eigenvalue $\lambda$ of matrix $A$. In this case, the general solution of the linear system is given by
+\begin{equation*}
+    \vec{x}(t) = \sum_{j = 1}^{n} c_j\vec{v}_je^{\lambda t}
+\end{equation*}
+
+Before proceeding any further, we will introduce the following definition.
+
+\begin{definition}\label{definition:1.2.1}
+    For an $n \times n$ matrix $A$ with eigenvalue $\lambda$ of multiplicity $m \leq n$, for $k = 1, 2,..., m$, any nonzero solution of the equation
+    \begin{equation*}
+        (A - \lambda I)^k\vec{v} = \vec{0}
+    \end{equation*}
+    is called a \emph{generalized eigenvector} of $A$.
+\end{definition}
+
+\begin{subcase}
+    If the matrix $A$ has one or many (less than $n$) linearly independent eigenvectors.
+\end{subcase}
+
+For simplicity, consider a two dimensional system. Let the eigenvalues be repeated but only one eigenvector, say $\vec{v}_1$ be linearly independent. Let $\vec{v}_2$ be a generalized vector of the $2 \times 2$ matrix $A$. Then $\vec{v}_2$ can be obtained from the relation
+\begin{equation*}
+    (A - \lambda I_2)\vec{v}_2 = \vec{v}_1
+\end{equation*}
+or
+\begin{equation*}
+    A\vec{v}_2 = \lambda \vec{v}_2 + \vec{v}_1
+\end{equation*}
+So the general solution of the system is given by
+\begin{equation*}
+    \vec{x}(t) = c_1\vec{v}_1e^{\lambda t} + c_2(t\vec{v}_1e^{\lambda t} + \vec{v}_2e^{\lambda t})
+\end{equation*}
+Similarly, for an $n \times n$ matrix $A$, the general solution may be written as
+\begin{equation*}
+    \vec{x}(t) = \sum_{j = 1}^{n} c_j\vec{x}_j(t)
+\end{equation*}
+where
+\begin{align*}
+    \vec{x}_1(t) &= \vec{v}_1e^{\lambda t} \\
+    \vec{x}_2(t) &= t\vec{v}_1e^{\lambda t} + \vec{v}_2e^{\lambda t} \\
+    \vec{x}_3(t) &= \frac{t^2}{2!}\vec{v}_1e^{\lambda t} + t\vec{v}_2e^{\lambda t} + \vec{v}_3e^{\lambda t} \\
+    &\vdots \\
+    \vec{x}_n(t) &= \frac{t^{n - 1}}{(n - 1)!}\vec{v}_1e^{\lambda t} + \cdots + \frac{t^2}{2!}\vec{v}_{n - 2}e^{\lambda t} + t\vec{v}_{n - 1}e^{\lambda t} + \vec{v}_ne^{\lambda t}
+\end{align*}
+
+\begin{case}
+    If the matrix $A$ has distinct and complex eigenvalues.
+\end{case}
+
+Suppose the real $n \times n$ matrix $A$ has $m$-pairs of complex eigenvalues of the form $\lambda_j = a_j + ib_j$, for $j = 1, 2,..., m$. Let, for $j = 1, 2,..., m$, $\vec{\alpha}_j + i\vec{\beta}_j$ denote the corresponding eigenvectors. Then the solution of the system $\frac{d\vec{x}}{dt} = A\vec{x}$ for these complex eigenvalues is given by
+\begin{equation*}
+    \vec{x}(t) = \sum_{j = 1}^{m} c_j\vec{u}_j + d_j\vec{v}_j
+\end{equation*}
+where 
+\begin{align*}
+    \vec{u}_j &= e^{a_j t}\left(\vec{\alpha}_j\cos(b_jt) - \vec{\beta}_j\sin(b_jt)\right) \\
+    \vec{v}_j &= e^{a_j t}\left(\vec{\alpha}_j\sin(b_jt) + \vec{\beta}_j\cos(b_jt)\right)
+\end{align*}
+and $c_j$, $d_j$ are arbitrary constants. 
+
+In specific times, it may be easier to find the \emph{eigenspace} of the corresponding eigenvalue $\lambda$. We provide the definition of the eigenspace as follows.
+
+\begin{definition}\label{definition:1.2.2}
+    Let $A$ be an $n \times n$ matrix and let $\lambda \in \K$. If $\lambda$ is an eigenvalue of $A$, then the \emph{eigenspace of $A$} with eigenvalue $\lambda$, denoted by $\E_A(\lambda)$ is the set
+    \begin{equation*}
+        \E_A(\lambda) = \ker(A - \lambda I_n) = \{\text{all eigenvectors of $A$ and $\vec{0}$}\}
+    \end{equation*}
+\end{definition}
+
+By having an eigenspace consisting of eigenvectors, this allows us to conclude that there could be more than one eigenvector that is able to satisfy the equation. We will use this in the following example.
+
+\begin{example}\label{example:1.2.3}
+    Find the general solution of the following homogeneous system using the eigenvalue-eigenvector method.
+    \begin{equation*}
+        \begin{cases}
+            \frac{d\vec{x}}{dt} &= 5x + 4y \\
+            \frac{d\vec{y}}{dt} &= x + 2y
+        \end{cases}
+    \end{equation*}
+\end{example}
+
+In matrix notation, the system can be written as $\frac{d\vec{x}}{dt} = A\vec{x}$, where $\vec{x} = \begin{bmatrix} x \\ y \end{bmatrix}$ and $A = \begin{bmatrix} 5 & 4 \\ 1 & 2 \end{bmatrix}$. The eigenvalues of $A$ satisfy the equation
+\begin{equation*}
+    \det(A - \lambda I) = \begin{vmatrix} 5 - \lambda & 4 \\ 1 & 2 - \lambda \end{vmatrix} = (5 - \lambda)(2 - \lambda) - 4 = (\lambda - 1)(\lambda - 6) = 0
+\end{equation*}
+So the eigenvalues of the equation are $\lambda_1 = 1$ and $\lambda_2 = 6$. So the eigenvalues of $A$ are real and distinct, so we use Case 1. We first find the eigenspace corresponding to the eigenvalue $\lambda_1 = 1$. We have
+\begin{align*}
+    \E_A(1) &= \ker(A - I) \\
+    &= \ker\left\{\begin{bmatrix} 4 & 4 \\ 1 & 1 \end{bmatrix}\right\} \\
+    &= \ker\left\{\begin{bmatrix} 1 & 1 \\ 0 & 0 \end{bmatrix}\right\} \\
+    &= \left\{\begin{bmatrix} -s \\ s \end{bmatrix} : s \in \K\right\} \\
+    &= \Span\left\{\begin{bmatrix} -1 \\ 1 \end{bmatrix}\right\}
+\end{align*}
+So we may take $\vec{v}_1 = \begin{bmatrix} -1 \\ 1 \end{bmatrix}$ as an eigenvector of $A$ corresponding to $\lambda_1 = 1$. Similarly, for $\lambda_2 = 6$,
+\begin{align*}
+    \E_A(6) &= \ker(A - 6I) \\
+    &= \ker\left\{\begin{bmatrix} -1 & 4 \\ 1 & -4 \end{bmatrix}\right\} \\
+    &= \ker\left\{\begin{bmatrix} 1 & -4 \\ 1 & -4 \end{bmatrix}\right\} \\
+    &= \ker\left\{\begin{bmatrix} 1 & -4 \\ 0 & 0 \end{bmatrix}\right\} \\
+    &= \left\{\begin{bmatrix} 4s \\ s \end{bmatrix} : s \in \K\right\} \\
+    &= \Span\left\{\begin{bmatrix} 4 \\ 1 \end{bmatrix}\right\}
+\end{align*}
+So we may take $\vec{v}_2 = \begin{bmatrix} 4 \\ 1 \end{bmatrix}$ as an eigenvector of $A$ corresponding to $\lambda_2 = 6$. Therefore, by Case 1, the general solution of the linear system is
+\begin{equation*}
+    \vec{x}(t) = c_1\begin{bmatrix} -1 \\ 1 \end{bmatrix}e^{t} + c_2\begin{bmatrix} 4 \\ 1 \end{bmatrix} e^{6t}
+\end{equation*}
+where $c_1, c_2 \in \K$.
+
+\begin{example}\label{example:1.2.4}
+    Find the general solution of the linear system
+    \begin{equation*}
+        \frac{d\vec{x}}{dt} = \begin{bmatrix} 3 & 0 \\ 0 & 3 \end{bmatrix} \vec{x}
+    \end{equation*}
+\end{example}
+
+In this situation, we will use Subcase 2.1. If $A = \begin{bmatrix} 3 & 0 \\ 0 & 3 \end{bmatrix}$, then we first find the eigenvalues of $A$ as follows:
+\begin{align*}
+    \chi_A(\lambda) &= \det(A - \lambda I) \\
+    &= \begin{vmatrix} 3 - \lambda & 0 \\ 0 & 3 - \lambda \end{vmatrix} \\
+    &= (3 - \lambda)^2 = 0
+\end{align*}
+So we have $\lambda = 3$ (algebraic multiplicity 2). Then we find the eigenspace of $A$ corresponding to eigenvalue $\lambda = 3$. Indeed,
+\begin{align*}
+    \E_A(3) &= \ker(A - 3I) \\
+    &= \ker\left\{\begin{bmatrix} 0 & 0 \\ 0 & 0 \end{bmatrix}\right\} \\
+    &= \left\{\begin{bmatrix} s \\ t \end{bmatrix} : s, t \in \K\right\} \\
+    &= \Span\left\{\begin{bmatrix} 1 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 1 \end{bmatrix}\right\}
+\end{align*}
+Therefore, we may take $\vec{v}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and $\vec{v}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$ as the eigenvectors of $A$ corresponding to $\lambda = 3$. Therefore, the general solution of the linear system is
+\begin{equation*}
+    \vec{x}(t) = c_1\begin{bmatrix} 1 \\ 0 \end{bmatrix}e^{3t} + c_2\begin{bmatrix} 0 \\ 1 \end{bmatrix}e^{3t}
+\end{equation*}
+
+\begin{example}\label{example:1.2.5}
+    Find the general solution of the system given by
+    \begin{equation*}
+        \begin{cases}
+            \frac{dx}{dt} = 3x - 4y \\
+            \frac{dy}{dt} = x - y
+        \end{cases}
+    \end{equation*}
+\end{example}
+
+In this case, we will be using Subcase 2.2. If $A = \begin{bmatrix} 3 & -4 \\ 1 & -1 \end{bmatrix}$, then we first find the eigenvalues of $A$ as follows:
+\begin{align*}
+    \chi_A(\lambda) &= \det(A - \lambda I) \\
+    &= \begin{vmatrix} 3 - \lambda & -4 \\ 1 & -1 - \lambda \end{vmatrix} \\
+    &= (3 - \lambda)(-1 - \lambda) + 4 \\
+    &= \lambda^2 - 2\lambda + 1 \\
+    &= (\lambda - 1)^2 = 0
+\end{align*}
+So we have $\lambda = 1$ (order 2). Then we find the eigenspace of $A$ corresponding to the eigenvalue $\lambda = 1$. Indeed,
+\begin{align*}
+    \E_A(1) &= \ker(A - I) \\
+    &= \ker\left\{\begin{bmatrix} 2 & -4 \\ 1 & -2 \end{bmatrix}\right\} \\
+    &= \ker\left\{\begin{bmatrix} 1 & -2 \\ 1 & -2 \end{bmatrix}\right\} \\
+    &= \left\{\begin{bmatrix} 2s \\ s \end{bmatrix} : s \in \K\right\} \\
+    &= \Span\left\{\begin{bmatrix} 2 \\ 1 \end{bmatrix}\right\}
+\end{align*}
+So we may take $\vec{v}_1 = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$ as an eigenvector of $A$ corresponding to $\lambda = 1$. Then, given $\vec{v}_1$, we now need to find the generalized eigenvector $\vec{v}_2$. If $\vec{v}_2 = \begin{bmatrix} x_2 \\ y_2 \end{bmatrix}$, then we solve
+\begin{equation*}
+    \begin{bmatrix} 2 & -4 \\ 1 & -2 \end{bmatrix} \begin{bmatrix} x_2 \\ y_2 \end{bmatrix} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}
+\end{equation*}
+In which case, by solving, we obtain $x_2 = 3$ and $y_2 = 1$ and therefore, the general solution of the system is
+\begin{align*}
+    \vec{x}(t) &= c_1\vec{v}_1e^t + c_2(t\vec{v}_1e^t + \vec{v}_2e^t) \\
+    &= c_1\begin{bmatrix} 2 \\ 1 \end{bmatrix} + c_2 \begin{bmatrix} 2 \\ 1 \end{bmatrix} te^t + c_2 \begin{bmatrix} 3 \\ 1 \end{bmatrix} e^t
+\end{align*}
+
+\begin{example}\label{example:1.2.6}
+    Find the general solution of the system given by
+    \begin{equation*}
+        \frac{d\vec{x}}{dt} = \begin{bmatrix} 1 & -5 \\ 1 & -3 \end{bmatrix}\vec{x}
+    \end{equation*}
+\end{example}
+
+In this case, we will use Case 3 to solve the system. If $A = \begin{bmatrix} 1 & -5 \\ 1 & -3 \end{bmatrix}$, then the eigenvalues of $A$ are given by
+\begin{align*}
+    \chi_A(\lambda) &= \det(A - \lambda I) \\
+    &= \begin{vmatrix} 1 - \lambda & -5 \\ 1 & -3 - \lambda \end{vmatrix} \\
+    &= (1 - \lambda)(-3 - \lambda) + 5 \\
+    &= \lambda^2 + 2\lambda + 2 \\
+    &= (\lambda + 1 - i)(\lambda + 1 + i)
+\end{align*}
+So the eigenvalues of $A$ are $\lambda_1 = -1 - i$ and $\lambda_2 = -1 + i$. Then we find the eigenspace of $A$ corresponding to the eigenvalue $\lambda_1$. Indeed,
+\begin{align*}
+    \E_A(-1 - i) &= \ker(A - (-1 - i)I) \\
+    &= \ker\left\{\begin{bmatrix} 1 - (-1 - i) & -5 \\ 1 & -3 - (-1 - i)\end{bmatrix}\right\} \\
+    &= \ker\left\{\begin{bmatrix} 2 + i & -5 \\ 1 & -2 + i \end{bmatrix}\right\} \\
+    &= \ker\left\{\begin{bmatrix} 1 & -2 + i \\ 1 & -2 + i \end{bmatrix}\right\} \\
+    &= \ker\left\{\begin{bmatrix} 1 & -2 + i \\ 0 & 0 \end{bmatrix}\right\} \\
+    &= \left\{\begin{bmatrix} s \\ (2 - i)s \end{bmatrix} : s \in \K\right\} \\
+    &= \Span\left\{\begin{bmatrix} 1 \\ 2 - i \end{bmatrix}\right\}
+\end{align*}
+So we may take $\vec{v}_1 = \begin{bmatrix} 1 \\ 2 - i \end{bmatrix}$ as an eigenvector of $A$ corresponding to $\lambda_1 = -1 - i$. Similarly, we may take $\vec{v}_2 = \begin{bmatrix} 1 \\ 2 + i \end{bmatrix}$. Then observe that
+\begin{align*}
+    \vec{v}_1 &= \begin{bmatrix} 1 \\ 2 \end{bmatrix} - i\begin{bmatrix} 0 \\ 1 \end{bmatrix} \\
+    \vec{v}_2 &= \begin{bmatrix} 1 \\ 2 \end{bmatrix} + i\begin{bmatrix} 0 \\ 1 \end{bmatrix}
+\end{align*}
+So then
+\begin{align*}
+    \vec{u}_1 &= e^{-t}\left(\begin{bmatrix} 1 \\ 2 \end{bmatrix}\cos(t) - \begin{bmatrix} 0 \\ 1 \end{bmatrix}\sin(t)\right) \\
+    \vec{u}_2 &= e^{-t}\left(\begin{bmatrix} 1 \\ 2 \end{bmatrix}\sin(t) + \begin{bmatrix} 0 \\ 1 \end{bmatrix}\cos(t)\right)
+\end{align*}
+Therefore, the general solution of the system is
+\begin{align*}
+    \vec{x}(t) &= c_1\vec{u}_1 +  c_2\vec{u}_2 \\
+    &= c_1e^{-t}\left(\begin{bmatrix} 1 \\ 2 \end{bmatrix}\cos(t) - \begin{bmatrix} 0 \\ 1 \end{bmatrix}\sin(t)\right) + c_2e^{-t}\left(\begin{bmatrix} 1 \\ 2 \end{bmatrix}\sin(t) + \begin{bmatrix} 0 \\ 1 \end{bmatrix}\cos(t)\right)
+\end{align*}
+
+\section{Diagonalization}
+
+The algebraic technique of diagonalizing a square matrix $A$ can be used to reduce the linear system
+\begin{equation*}
+    \frac{d\vec{x}}{dt} = A\vec{x} \tag{1}
+\end{equation*}
+to an uncoupled linear system. We consider the case when $A$ has $\K$ distinct eigenvalues. The following theorem from linear algebra then allows us to solve the linear system.
+
+\begin{theorem}\label{theorem:1.3.1}
+    If the eigenvalues $\lambda_1, \lambda_2,..., \lambda_n$ of an $n \times n$ matrix $A$ are in $\K$ and are distinct, then any corresponding eigenvectors $\{\vec{v}_1,..., \vec{v}_n\}$ forms a basis for $\K^n$, the matrix $P = [\vec{v}_1, \vec{v}_2,..., \vec{v}_n]$ is invertible, and
+    \begin{equation*}
+        P^{-1}AP = \diag(\lambda_1, \lambda_2,..., \lambda_n)
+    \end{equation*}
+\end{theorem}
+
+This theorem says that if a linear transformation $T : \K^n \to \K^n$ is represented by the $n \times n$ matrix $A$ with respect to the standard basis $\{\vec{e}_1,..., \vec{e}_n\}$ for $\K^n$, then with respect to any basis of eigenvectors $\{\vec{v}_1,..., \vec{v}_n\}$, $T$ is represented by the diagonal matrix of eigenvalues $\diag(\lambda_1,..., \lambda_n)$.
+
+In order to reduce the system (1) to an uncoupled linear systems using the above theorem, define the linear transformation of coordinates
+\begin{equation*}
+    \vec{y} = P^{-1}\vec{x}
+\end{equation*}
+where $P$ is the invertible matrix defined in the theorem. Then
+\begin{align*}
+    \vec{x} = P\vec{y} \quad \frac{d\vec{y}}{dt} = P^{-1}\frac{d\vec{x}}{dt} = P^{-1}A\vec{x} = P^{-1}AP\vec{y}
+\end{align*}
+and, according to Theorem \ref{theorem:1.3.1}, we obtain the uncoupled linear system
+\begin{equation*}
+    \frac{d\vec{y}}{dt} = \diag(\lambda_1, \lambda_2,..., \lambda_n)\vec{y}
+\end{equation*}
+This uncoupled linear system has the solution
+\begin{equation*}
+    \vec{y}(t) = \diag(e^{\lambda_1t}, e^{\lambda_2t},..., e^{\lambda_nt})\vec{y}(0)
+\end{equation*}
+And then since $\vec{y}(0) = P^{-1}\vec{x}(0)$ and $\vec{x}(t) = P\vec{y}(t)$, it follows that (1) has the solution
+\begin{equation*}
+    \vec{x}(t) = PE(t)P^{-1}\vec{x}(0) \tag{2}
+\end{equation*}
+where $E(t)$ is the diagonal matrix
+\begin{equation*}
+    E(t) = \diag(e^{\lambda_1t}, e^{\lambda_2t},..., e^{\lambda_nt})
+\end{equation*}
+
+\begin{corollary}\label{corollary:1.3.2}
+    Under the hypotheses of the above theorem, the solution of the linear system (1) is given by the function $\vec{x}(t)$ defined by (2).
+\end{corollary}
+
+\begin{example}\label{example:1.3.3}
+    Consider the linear system
+    \begin{equation*}
+        \frac{dx_1}{dt} = -x_1 - 3x_2 \quad \frac{dx_2}{dt} = 2x_2
+    \end{equation*}
+    which can be written in the form (1) with the matrix
+    \begin{equation*}
+        A = \begin{bmatrix}
+            -1 & -3 \\
+            0 & 2
+        \end{bmatrix}
+    \end{equation*}
+    The eigenvalues of $A$ are $\lambda_1 = -1$ and $\lambda_2 = 2$. A pair of corresponding eigenvectors is given by
+    \begin{equation*}
+        \vec{v}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \quad 
+        \vec{v}_2 = \begin{bmatrix} -1 \\ 1 \end{bmatrix}
+    \end{equation*}
+    The matrix $P$ and its inverse are then given by
+    \begin{equation*}
+        P = \begin{bmatrix} 1 & -1 \\ 0 & 1 \end{bmatrix} \quad P^{-1} = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}
+    \end{equation*}
+    It is elementary to verify that
+    \begin{equation*}
+        P^{-1}AP = \begin{bmatrix} -1 & 0 \\ 0 & 2 \end{bmatrix}
+    \end{equation*}
+    Then under the coordinate transformation $\vec{y} = P^{-1}\vec{x}$, we obtain the uncoupled linear system,
+    \begin{align*}
+        \frac{dy_1}{dt} = -y_1 \quad \frac{dy_2}{dt} = 2y_2
+    \end{align*}
+    which has the general solution $y_1(t) = c_1e^{-t}$ and $y_2(t) = c_2e^{2t}$. The phase portrait for this system is given in Section 1.1. And by Corollary \ref{corollary:1.3.2}, the general solution to the original linear system of this example is given by
+    \begin{equation*}
+        \vec{x}(t) = P\begin{bmatrix} e^{-t} & 0 \\ 0 & e^{2t} \end{bmatrix} P^{-1} \vec{c}
+    \end{equation*}
+    where $\vec{c} = \vec{x}(0)$, or equivalently,
+    \begin{equation*}
+        \begin{bmatrix} x_1(t) \\ x_2(t) \end{bmatrix} = \begin{bmatrix} c_1e^{-t} + c_2(e^{-t} - e^{2t}) \\ c_2e^{2t} \end{bmatrix} \tag{3}
+    \end{equation*}
+\end{example}
+
+Note that the subspaces spanned by the eigenvectors $\vec{v}_1$ and $\vec{v}_2$ of the matrix $A$ determine the stable and unstable subspaces of the linear system (1) according to the following definition.
+
+\begin{definition}\label{definition:1.3.4}
+    Suppose that the $n \times n$ matrix $A$ has $k$ negative eigenvalues $\lambda_1,..., \lambda_k$ and $n - k$ positive eigenvalues $\lambda_{k + 1},... \lambda_n$ and that these eigenvalues are distinct, and are in $\K$. Let $\{\vec{v}_1,..., \vec{v}_n\}$ be a corresponding set of eigenvectors. Then the \emph{stable} and \emph{unstable subspaces} of the linear system (1), $E^s$ and $E^u$ are the linear subspaces spanned by $\{\vec{v}_1,..., \vec{v}_k\}$ and $\{\vec{v}_{k + 1},..., \vec{v}_n\}$, respectively. That is,
+    \begin{equation*}
+        E^s = \Span\{\vec{v}_1,..., \vec{v}_k\} \quad E^u = \Span\{\vec{v}_{k + 1},..., \vec{v}_n\}
+    \end{equation*}
+\end{definition}
+
+\section{Exponentials of Operators}
+
+In order to define the exponential of a linear operator $T : \K^n \to \K^n$, it is necessary to define the concept of convergence in the linear space $L(\K^n)$ of linear operators on $\K^n$. This is done using the \emph{operator norm} of $T$ defined by
+\begin{equation*}
+    \|T\|_{\infty} = \sup_{\|\vec{x}\|_2 \leq 1} |T(\vec{x})|
+\end{equation*}
+where $\|\vec{x}\|_2$ denotes the Euclidean norm of $\vec{x} \in \K^n$, i.e.
+\begin{equation*}
+    \|\vec{x}\|_2 = \sqrt{x_1^2 + \cdots + x_n^2}
+\end{equation*}
+the operator norm has all of the usual properties of a norm.
+
+\begin{definition}\label{definition:1.3.1}
+    Let $L(\K^n)$ be the linear operator of norms. Then we say that $\|\cdot\| : \K^n \to [0, \infty)$ is a \emph{norm} if
+    \begin{enumerate}
+        \item For all $T \in L(\K^n)$, $\|T\| = 0$ if and only if $T = 0$.
+        \item For all $\alpha \in \K$ and $T \in L(\K^n)$, $\|\alpha T\| = |\alpha|\|T\|$.
+        \item For all $S, T \in L(\K^n)$, $\|S + T\| \leq \|S\| + \|T\|$.
+    \end{enumerate}
+\end{definition}
+
+\end{document}
