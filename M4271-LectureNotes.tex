@@ -24,10 +24,12 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\F}{\mathbb{F}}
+\renewcommand{\L}{\mathscr{L}}
 \renewcommand{\H}{\mathbb{H}}
 \newcommand{\M}{\mathcal{M}}
 \newcommand{\T}{\mathbb{T}}
 \newcommand{\TT}{\mathcal{T}}
+\newcommand{\e}{\varepsilon}
 \newcommand{\teq}{\trianglelefteq}
 \DeclareMathOperator{\Char}{char}
 \DeclareMathOperator{\diag}{diag}
@@ -463,7 +465,7 @@ Note that the subspaces spanned by the eigenvectors $\vec{v}_1$ and $\vec{v}_2$ 
 
 \section{Exponentials of Operators}
 
-In order to define the exponential of a linear operator $T : \K^n \to \K^n$, it is necessary to define the concept of convergence in the linear space $L(\K^n)$ of linear operators on $\K^n$. This is done using the \emph{operator norm} of $T$ defined by
+In order to define the exponential of a linear operator $T : \K^n \to \K^n$, it is necessary to define the concept of convergence in the linear space $\L(\K^n)$ of linear operators on $\K^n$. This is done using the \emph{operator norm} of $T$ defined by
 \begin{equation*}
     \|T\|_{\infty} = \sup_{\|\vec{x}\|_2 \leq 1} |T(\vec{x})|
 \end{equation*}
@@ -473,13 +475,112 @@ where $\|\vec{x}\|_2$ denotes the Euclidean norm of $\vec{x} \in \K^n$, i.e.
 \end{equation*}
 the operator norm has all of the usual properties of a norm.
 
-\begin{definition}\label{definition:1.3.1}
-    Let $L(\K^n)$ be the linear operator of norms. Then we say that $\|\cdot\| : \K^n \to [0, \infty)$ is a \emph{norm} if
+\begin{definition}\label{definition:1.4.1}
+    Let $\L(\K^n)$ be the linear operator of norms. Then we say that $\|\cdot\| : \K^n \to [0, \infty)$ is a \emph{norm} if
     \begin{enumerate}
-        \item For all $T \in L(\K^n)$, $\|T\| = 0$ if and only if $T = 0$.
-        \item For all $\alpha \in \K$ and $T \in L(\K^n)$, $\|\alpha T\| = |\alpha|\|T\|$.
-        \item For all $S, T \in L(\K^n)$, $\|S + T\| \leq \|S\| + \|T\|$.
+        \item For all $T \in \L(\K^n)$, $\|T\| = 0$ if and only if $T = 0$.
+        \item For all $\alpha \in \K$ and $T \in \L(\K^n)$, $\|\alpha T\| = |\alpha|\|T\|$.
+        \item For all $S, T \in \L(\K^n)$, $\|S + T\| \leq \|S\| + \|T\|$.
     \end{enumerate}
 \end{definition}
+
+It follows from the Cauchy-Schwarz inequality that if $T \in \L(\K^n)$ is represented by the matrix $A$ with respect to the standard basis for $\K^n$, then $\|A\| \leq \sqrt{n}\ell$, where $\ell$ is the maximum length of the rows of $A$.
+
+The convergence of a sequence of operators $T_k \in \L(\K^n)$ is then defined in terms of the operator norm as follows:
+
+\begin{definition}\label{definition:1.4.2}
+    A sequence of linear operators $(T_k)_{k = 1}^{n}$ where for each $1 \leq k \leq n$, $T_k \in L(\R^n)$ is said to converge to a linear operator $T \in \L(\K^n)$ as $k \to \infty$, i.e.
+    \begin{equation*}
+        \lim_{k \to \infty} T_k = T
+    \end{equation*}
+    if for every $\e > 0$, there exists an $N \in \N$ such that $\|T_k - T\| < \e$ for all $k \geq N$.
+\end{definition}
+
+\begin{lemma}\label{lemma:1.4.3}
+    For $S, T \in \L(\K^n)$ and $\vec{x} \in \K^n$,
+    \begin{enumerate}
+        \item $|T(\vec{x})| \leq \|T\||x|$
+        \item $\|TS\| \leq \|T\| \|S\|$
+        \item $\|T^k\| \leq \|T\|^k$ for $k \in \N \cup \{0\}$
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    To see that (1) is true, note that the inequality is true for $\vec{x} = \vec{0}$. For $\vec{x} \neq \vec{0}$, define the unit vector $\vec{y} = \frac{\vec{x}}{\|\vec{x}\|_2}$. Then from the definition of the operator norm
+    \begin{equation*}
+        \|T\|_{\infty} \geq |T(\vec{y})| = \frac{|T(\vec{x})|}{\|\vec{x}\|_2}
+    \end{equation*}
+
+    To see that (2) is true, consider when $\|\vec{x}\|_2 \leq 1$. Then from (1),
+    \begin{align*}
+        |T(S(\vec{x})) &\leq \|T\||S(\vec{x})| \\
+        &\leq \|T\|\|S\| \|\vec{x}\|_2 \\
+        &\leq \|T\| \|S\|
+    \end{align*}
+    Therefore,
+    \begin{equation*}
+        \|TS\| = \max_{\|\vec{x}\|_2 \leq 1} |TS(\vec{x})| \leq \|T\| \|S\|
+    \end{equation*}
+
+    Finally, note that (3) is an immediate consequence of (2), which can be proven by induction.
+\end{proof}
+
+\begin{theorem}\label{theorem:1.4.4}
+    Let $T \in \L(\K^n)$ and $t_0 > 0$. Then the series
+    \begin{equation*}
+        \sum_{n = 0}^{\infty} \frac{T^n t^n}{n!}
+    \end{equation*}
+    is absolutely and uniformly convergent for all $|t| \leq t_0$.
+\end{theorem}
+
+\begin{proof}
+    Let $\|T\| = a$. Then using Lemma \ref{lemma:1.4.3}, for $|t| \leq t_0$,
+    \begin{equation*}
+        \left\|\frac{T^n t^n}{n!}\right\| \leq \frac{\|T\|^n |t|^n}{n!} \leq \frac{a^n t_0^n}{n!}
+    \end{equation*}
+    But
+    \begin{equation*}
+        \sum_{n = 0}^{\infty} \frac{a^nt_0^n}{n!} = e^{at_0}
+    \end{equation*}
+    It follows from the Weierstrass M-Test that the series
+    \begin{equation*}
+        \sum_{n = 0}^{\infty} \frac{T^n t^n}{n!}
+    \end{equation*}
+    is absolutely and uniformly convergent for all $|t| \leq t_0$.
+\end{proof}
+
+The exponential of the linear operator $T$ is then defined by the absolutely convergent series
+\begin{equation*}
+    e^T = \sum_{n = 0}^{\infty} \frac{T^n}{n!}
+\end{equation*}
+It follows from the properties of limits that $e^T$ is a linear operator of $\K^n$ and it follows as in the proof in Theorem \ref{theorem:1.4.4}, that $\|e^T\| \leq e^{\|T\|}$.
+
+Since our main interest in this chapter is the solution of linear systems of the form
+\begin{equation*}
+    \frac{d\vec{x}}{dt} = A\vec{x}
+\end{equation*}
+we shall assume that the linear transformation $T$ on $\K^n$ is represented by the $n \times n$ matrix $A$ with respect to the standard basis for $\K^n$ and define the exponential $e^{At}$.
+
+\begin{definition}\label{definition:1.4.5}
+    Let $A$ be an $n \times n$ matrix. Then for $t \in \R$,
+    \begin{equation*}
+        e^{At} = \sum_{n = 1}^{\infty} \frac{A^n t^n}{n!}
+    \end{equation*}
+\end{definition}
+
+For an $n \times n$ matrix $A$, $e^{At}$ is an $n \times n$ matrix which can be computed in terms of the eigenvalues and eigenvectors of $A$. This will be carried out in the remainder of this chapter. As in the proof of the above theorem, we obtain that $\|e^{At}\| \leq e^{\|A\||t|}$ where $\|A\| = \|T\|$ and $T$ is the linear transformation $T(\vec{x}) = A\vec{x}$.
+
+We next establish some basic properties of the linear transformation $e^T$ in order to facilitate the computation of $e^T$ or the $n \times n$ matrix $e^A$.
+
+\begin{proposition}\label{proposition:1.4.6}
+    If $P$ and $T$ are linear transformations on $\K^n$ and $S = PTP^{-1}$, then $e^S = Pe^TP^{-1}$.
+\end{proposition}
+
+\begin{proof}
+    It follows from the definition of $e^S$ that
+    \begin{equation*}
+        e^S = \lim_{n \to \infty} \sum_{k = 0}^{n} \frac{(PTP^{-1})^k}{k!} = P\lim_{n \to \infty} \sum_{k = 0}^{n} \frac{T^k}{k!}P^{-1} = Pe^TP^{-1}
+    \end{equation*}
+\end{proof}
 
 \end{document}
