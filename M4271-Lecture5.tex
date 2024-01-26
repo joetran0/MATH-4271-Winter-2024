@@ -1,0 +1,151 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts, amssymb, amsmath, amsthm, booktabs, hyperref, pgfplots, tikz, xcolor, mathrsfs}
+
+\theoremstyle{definition}\newtheorem{definition}{Definition}
+\theoremstyle{definition}\newtheorem{notation}{Notation}
+\theoremstyle{definition}\newtheorem{example}{Example}
+\theoremstyle{theorem}\newtheorem{theorem}{Theorem}
+\theoremstyle{theorem}\newtheorem{corollary}{Corollary}
+\theoremstyle{theorem}\newtheorem{proposition}{Proposition}
+\theoremstyle{theorem}\newtheorem{lemma}{Lemma}
+\theoremstyle{theorem}\newtheorem{question}{Question}
+\theoremstyle{remark}\newtheorem{remark}{Remark}
+
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CC}{\mathcal{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\renewcommand{\SS}{\mathcal{S}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\M}{\mathcal{M}}
+\renewcommand{\L}{\mathscr{L}}
+\newcommand{\e}{\varepsilon}
+\newcommand{\teq}{\trianglelefteq}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Span}{span}
+
+\everymath{\displaystyle}
+\setlength{\parskip}{5pt}
+
+\begin{document}
+
+\noindent \textbf{MATH 4271 Dynamical Systems} \hfill \textbf{Lecture 5} \\
+\textsc{Lecture} \hfill \textsc{Joe Tran}
+
+\section{Exponentials of Linear Operators and Matrices}
+
+The ultimate objective in this section is to be able to write the general solution of $\frac{d\vec{x}}{dt} = A\vec{x}$, where $\vec{x}(0) = \vec{x}_0$ as
+\begin{equation*}
+    \vec{x}(t) = \vec{x}_0e^{At}
+\end{equation*}
+How do we compute $e^{At}$ or for any linear operator $T$, $e^T$?
+
+Recall that an operator $T$ on a vector space $V$ is a mapping that maps $\vec{v} \in V$ to $\vec{w} = T(\vec{v}) \in V$, i.e. $T : V \to V$, or $\vec{v} \mapsto T(\vec{v})$.
+
+\begin{definition}
+    We call $L$ to be a linear operator if
+    \begin{itemize}
+        \item For any $\vec{v}, \vec{w} \in V$, $T(\vec{v} + \vec{w}) = T(\vec{v}) + T(\vec{w})$.
+        \item For any $\alpha \in \K$ and $\vec{v} \in V$, then $T(\alpha \vec{v}) = \alpha \in T(\vec{v})$.
+    \end{itemize}
+\end{definition}
+
+If $V = \R^n$, then $T : \R^n \to \R^n$, or $\vec{x} \mapsto T(\vec{x})$.
+
+\begin{definition}
+    The operator norm of $T$ is defined by
+    \begin{equation*}
+        \|T\|_{\infty} = \sup_{\|\vec{x}\|_2 \leq 1} |T(\vec{x})|
+    \end{equation*}
+    where
+    \begin{equation*}
+        \|\vec{x}\|_2 = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}
+    \end{equation*}
+    is the Euclidean norm of $\vec{x} \in \K^n$.
+\end{definition}
+
+\begin{example}
+    Let $T(\vec{x}) = A\vec{x}$, and let $A = \begin{bmatrix} 2 & 1 \\ 0 & 1 \end{bmatrix}$ and $\vec{x} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}$. The $T(\vec{x})$ is given by
+    \begin{equation*}
+        T(\vec{x}) = A\vec{x} = \begin{bmatrix} 2 & 1 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = \begin{bmatrix} 2x_1 + x_2 \\ x_2 \end{bmatrix} \in \R^2
+    \end{equation*}
+    Now how do we find $\|T\|_{\infty}$, i.e.
+    \begin{equation*}
+        \|T\|_{\infty} = \sup_{\|\vec{x}\|_2 \leq 1} |T(\vec{x})| = \sup_{\|\vec{x}\|_2 \leq 1} |A\vec{x}| = \sup_{\|\vec{x}\|_2 \leq 1} \sqrt{(2x_1 + x_2)^2 + x_2^2}
+    \end{equation*}
+\end{example}
+
+We use the method of Lagrange's multiplier to find the max of a function of two variables. Let
+\begin{equation*}
+    f(x_1, x_2) = \|T\|^2 = (2x_1 + x_2)^2 + x_2^2 = 4x_1^2 + 4x_1x_2 + x_2^2 + x_2^2
+\end{equation*}
+
+\begin{definition}
+    A sequence of operators $(T_k)_{k = 1}^{n}$ is said to converge to an operator $T \in L(\K^n)$ if for every $\e > 0$, there exists an $N \in \N$ such that $\|T_k - T\| < \e$ for all $k \geq N$.
+\end{definition}
+
+\begin{notation}
+    We use the notation $\L(\K^n)$ to be the linear space of linear operators on $\K^n$.
+\end{notation}
+
+\begin{proposition}
+    Let $T, S \in \L(\K^n)$ and $A, B \in \M_n(\K)$. Then
+    \begin{enumerate}
+        \item $\|TS\| \leq \|T\| \|S\|$ or $\|AB\| \leq \|A\| \|B\|$
+        \item $\|T^k\| \leq \|T\|^k$ for all $k = 0, 1, 2,...$. or $\|A^k\| \leq \|A\|^k$ for all $k = 0, 1, 2,...$.
+    \end{enumerate} 
+\end{proposition}
+
+\begin{theorem}
+    Let $T \in \L(\K^n)$ and let $t_0 > 0$. Then the series
+    \begin{equation*}
+        \sum_{n = 0}^{\infty} \frac{T^n t^n}{n!}
+    \end{equation*}
+    is absolutely and uniformly convergent.
+\end{theorem}
+
+Recall that $\sum_{n = 1}^{\infty} x_n$ is a convergent series if the sequence of partial sums $(s_n)_{n \in \N}$ is convergent, where for each $n \in \N$, $s_n = \sum_{k = 1}^{n} x_k$.
+
+Recall that $\sum_{n = 1}^{\infty} x_n$ is said to be absolute convergent if $\sum_{n = 1}^{\infty} |x_n|$ converges.
+
+\begin{definition}
+    The exponential of $T \in \L(\K^n)$ is defined as
+    \begin{equation*}
+        e^T = \sum_{n = 0}^{\infty} \frac{T^n}{n!}
+    \end{equation*}
+\end{definition}
+
+In particular, if $T : \K^n \to \K^n$, or $A = [a_{ij}]_{n \times n}$, then
+\begin{equation*}
+    e^{At} = \sum_{k = 0}^{n} \frac{A^kt^k}{k!}
+\end{equation*}
+
+Recall from calculus, the Taylor series tells us for $\theta \in \R^n$,
+\begin{align*}
+    e^\theta = \sum_{k = 0}^{n} \frac{\theta^k}{k!}
+\end{align*}
+
+\begin{example}
+    Let $D = \begin{bmatrix} a & 0 \\ 0 & a \end{bmatrix}$. Find $e^D$.
+\end{example}
+
+To find $e^D$, observe that
+\begin{align*}
+    e^D &= \sum_{n = 0}^{\infty} \frac{D^n}{n!} \\
+    &= I + \begin{bmatrix} a & 0 \\ 0 & a \end{bmatrix} + \frac{1}{2!}\begin{bmatrix} a^2 & 0 \\ 0 & a^2 \end{bmatrix} + \cdots \\
+    &= \begin{bmatrix}
+        1 + a + \frac{1}{2!}a^2 + \cdots & 0 \\
+        0 & 1 + a + \frac{1}{2!}a^2 + \cdots
+    \end{bmatrix} \\
+    &= \begin{bmatrix} \sum_{n = 0}^{\infty} \frac{a^n}{n!} & 0 \\ 0 & \sum_{n = 0}^{\infty} \frac{a^n}{n!} \end{bmatrix} = \sum_{n = 0}^{\infty} \frac{a^n}{n!} I = e^aI
+\end{align*}
+
+\end{document}
