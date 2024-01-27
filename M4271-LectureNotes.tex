@@ -96,13 +96,13 @@ or equivalently,
 \begin{equation*}
     \vec{x}(t) = \begin{bmatrix} e^{-t} & 0 \\ 0 & e^{2t} \end{bmatrix} \vec{c}
 \end{equation*}
-where $\vec{c} = \vec{x}(0)$. The solution defines a motion along these curves. That is, each $\vec{c} \in \R^2$ moves to a point $\vec{x}(t) \in \R^2$ after time $t$. These motions can be described geometrically by drawing the solution curves in the $x_1x_2$-plane, which we refer to as the \emph{phase plane}, and using arrows to indicate the direction of motion along these curves with increasing time $t$.
+where $\vec{c} = \vec{x}(0)$. The solution defines a motion along these curves. That is, each $\vec{c} \in \R^2$ moves to a point $\vec{x}(t) \in \R^2$ after time $t$. These motions can be described geometrically by drawing the solution curves in the $x_1x_2$-plane, which we refer to as the \emph{phase plane}, and using arrows to indicate the direction of motion along these curves with increasing time $t$. \index{phase plane}
 
-For $c_1 = c_2 = 0$, $x_1(t) = 0$ and $x_2(t) = 0$ for all $t \in \R$, and the origin is referred to as an \emph{equilibrium point} in this example. Note that solutions starting on the $x_1$-axis approach the origin as $t \to \infty$, and that solutions starting on the $x_2$-axis approach the origin as $t \to -\infty$.
+For $c_1 = c_2 = 0$, $x_1(t) = 0$ and $x_2(t) = 0$ for all $t \in \R$, and the origin is referred to as an \emph{equilibrium point} in this example. Note that solutions starting on the $x_1$-axis approach the origin as $t \to \infty$, and that solutions starting on the $x_2$-axis approach the origin as $t \to -\infty$. \index{equilibrium point}
 
-The \emph{phase portrait} of a system of differential equations with $\vec{x} \in \R^n$ is the set of all solution curves of $\frac{d\vec{x}}{dt} = A\vec{x}$ in the phase space $\R^n$. The above figure provides a geometric representation of the phase portrait of the uncoupled linear system as described above.
+The \emph{phase portrait} of a system of differential equations with $\vec{x} \in \R^n$ is the set of all solution curves of $\frac{d\vec{x}}{dt} = A\vec{x}$ in the phase space $\R^n$. The above figure provides a geometric representation of the phase portrait of the uncoupled linear system as described above. \index{phase portrait}
 
-The \emph{dynamical system} defined by the linear system $\frac{d\vec{x}}{dt} = A\vec{x}$ in this example is simply the mapping $\phi : \R \times \R^2 \to \R^2$ defined by the solution $\vec{x}(t, \vec{c})$ given by
+The \emph{dynamical system} defined by the linear system $\frac{d\vec{x}}{dt} = A\vec{x}$ in this example is simply the mapping $\phi : \R \times \R^2 \to \R^2$ defined by the solution $\vec{x}(t, \vec{c})$ given by \index{dynamical system}
 \begin{equation*}
     \vec{x}(t) = \begin{bmatrix} e^{-t} & 0 \\ 0 & e^{2t} \end{bmatrix} \vec{c}
 \end{equation*}
@@ -116,7 +116,7 @@ The function
 \begin{equation*}
     \vec{f}(\vec{x}) = A\vec{x}
 \end{equation*}
-on the right hand side of $\frac{d\vec{x}}{dt} = A\vec{x}$ defines a mapping $\vec{f} : \R^2 \to \R^2$ (linear in this case). This mapping (which need not be linear) defines a \emph{vector field} on $\R^2$, i.e. to each point $\vec{x} \in \R^2$, the mapping $\vec{f}$ assigns a vector $\vec{f}(\vec{x})$.
+on the right hand side of $\frac{d\vec{x}}{dt} = A\vec{x}$ defines a mapping $\vec{f} : \R^2 \to \R^2$ (linear in this case). This mapping (which need not be linear) defines a \emph{vector field} on $\R^2$, i.e. to each point $\vec{x} \in \R^2$, the mapping $\vec{f}$ assigns a vector $\vec{f}(\vec{x})$. \index{vector field}
 
 Now let us consider the following uncoupled linear system in $\R^3$,
 \begin{align*}
@@ -131,11 +131,11 @@ The general solution is given by
     z(t) &= c_3e^{-t}
 \end{align*}
 
-The $xy$-plane is referred to as the \emph{unstable subspace} of the system and the $z$-axis is called the \emph{stable subspace} of the system.
+The $xy$-plane is referred to as the \emph{unstable subspace} of the system and the $z$-axis is called the \emph{stable subspace} of the system. \index{unstable subspace} \index{stable subspace}
 
 \section{Eigenvalue-Eigenvector Method}
 
-As we know, the solution of a linear system constitutes a linear space and the solution is formed by the eigenvectors of the matrix. There may have four possibilities according to the eigenvalues and eigenvectors of matrix $A$. We will proceed case by case.
+As we know, the solution of a linear system constitutes a linear space and the solution is formed by the eigenvectors of the matrix. There may have four possibilities according to the eigenvalues and eigenvectors of matrix $A$. We will proceed case by case. \index{eigenvalue} \index{eigenvector}
 
 \begin{case}
     If the eigenvalues of $A$ are real and distinct.
@@ -172,11 +172,11 @@ Before proceeding any further, we will introduce the following definition.
     \begin{equation*}
         (A - \lambda I)^k\vec{v} = \vec{0}
     \end{equation*}
-    is called a \emph{generalized eigenvector} of $A$.
+    is called a \emph{generalized eigenvector} of $A$. \index{generalized eigenvector}
 \end{definition}
 
 \begin{subcase}
-    If the matrix $A$ has one or many (less than $n$) linearly independent eigenvectors.
+    If the matrix $A$ has one or many (less than $n$) linearly independent eigenvectors. \index{linearly independent}
 \end{subcase}
 
 For simplicity, consider a two dimensional system. Let the eigenvalues be repeated but only one eigenvector, say $\vec{v}_1$ be linearly independent. Let $\vec{v}_2$ be a generalized vector of the $2 \times 2$ matrix $A$. Then $\vec{v}_2$ can be obtained from the relation
@@ -221,7 +221,7 @@ and $c_j$, $d_j$ are arbitrary constants.
 
 In specific times, it may be easier to find the \emph{eigenspace} of the corresponding eigenvalue $\lambda$. We provide the definition of the eigenspace as follows.
 
-\begin{definition}\label{definition:1.2.2}
+\begin{definition}\label{definition:1.2.2} \index{eigenspace}
     Let $A$ be an $n \times n$ matrix and let $\lambda \in \K$. If $\lambda$ is an eigenvalue of $A$, then the \emph{eigenspace of $A$} with eigenvalue $\lambda$, denoted by $\E_A(\lambda)$ is the set
     \begin{equation*}
         \E_A(\lambda) = \ker(A - \lambda I_n) = \{\text{all eigenvectors of $A$ and $\vec{0}$}\}
@@ -371,14 +371,14 @@ Therefore, the general solution of the system is
 
 \section{Diagonalization}
 
-The algebraic technique of diagonalizing a square matrix $A$ can be used to reduce the linear system
+The algebraic technique of diagonalizing a square matrix $A$ can be used to reduce the linear system \index{diagonalization}
 \begin{equation*}
     \frac{d\vec{x}}{dt} = A\vec{x} \tag{1}
 \end{equation*}
 to an uncoupled linear system. We consider the case when $A$ has $\K$ distinct eigenvalues. The following theorem from linear algebra then allows us to solve the linear system.
 
 \begin{theorem}\label{theorem:1.3.1}
-    If the eigenvalues $\lambda_1, \lambda_2,..., \lambda_n$ of an $n \times n$ matrix $A$ are in $\K$ and are distinct, then any corresponding eigenvectors $\{\vec{v}_1,..., \vec{v}_n\}$ forms a basis for $\K^n$, the matrix $P = [\vec{v}_1, \vec{v}_2,..., \vec{v}_n]$ is invertible, and
+    If the eigenvalues $\lambda_1, \lambda_2,..., \lambda_n$ of an $n \times n$ matrix $A$ are in $\K$ and are distinct, then any corresponding eigenvectors $\{\vec{v}_1,..., \vec{v}_n\}$ forms a basis for $\K^n$, the matrix $P = [\vec{v}_1, \vec{v}_2,..., \vec{v}_n]$ is invertible, and \index{invertible}
     \begin{equation*}
         P^{-1}AP = \diag(\lambda_1, \lambda_2,..., \lambda_n)
     \end{equation*}
@@ -460,23 +460,23 @@ Note that the subspaces spanned by the eigenvectors $\vec{v}_1$ and $\vec{v}_2$ 
     Suppose that the $n \times n$ matrix $A$ has $k$ negative eigenvalues $\lambda_1,..., \lambda_k$ and $n - k$ positive eigenvalues $\lambda_{k + 1},... \lambda_n$ and that these eigenvalues are distinct, and are in $\K$. Let $\{\vec{v}_1,..., \vec{v}_n\}$ be a corresponding set of eigenvectors. Then the \emph{stable} and \emph{unstable subspaces} of the linear system (1), $E^s$ and $E^u$ are the linear subspaces spanned by $\{\vec{v}_1,..., \vec{v}_k\}$ and $\{\vec{v}_{k + 1},..., \vec{v}_n\}$, respectively. That is,
     \begin{equation*}
         E^s = \Span\{\vec{v}_1,..., \vec{v}_k\} \quad E^u = \Span\{\vec{v}_{k + 1},..., \vec{v}_n\}
-    \end{equation*}
+    \end{equation*} \index{stable subspace} \index{unstable subspace}
 \end{definition}
 
 \section{Exponentials of Operators}
 
-In order to define the exponential of a linear operator $T : \K^n \to \K^n$, it is necessary to define the concept of convergence in the linear space $\L(\K^n)$ of linear operators on $\K^n$. This is done using the \emph{operator norm} of $T$ defined by
+In order to define the exponential of a linear operator $T : \K^n \to \K^n$, it is necessary to define the concept of convergence in the linear space $\L(\K^n)$ of linear operators on $\K^n$. This is done using the \emph{operator norm} of $T$ defined by \index{operator norm} \index{norm} \index{linear operator} \index{linear space}
 \begin{equation*}
     \|T\|_{\infty} = \sup_{\|\vec{x}\|_2 \leq 1} |T(\vec{x})|
 \end{equation*}
-where $\|\vec{x}\|_2$ denotes the Euclidean norm of $\vec{x} \in \K^n$, i.e.
+where $\|\vec{x}\|_2$ denotes the Euclidean norm of $\vec{x} \in \K^n$, i.e. \index{Euclidean norm}
 \begin{equation*}
     \|\vec{x}\|_2 = \sqrt{x_1^2 + \cdots + x_n^2}
 \end{equation*}
 the operator norm has all of the usual properties of a norm.
 
 \begin{definition}\label{definition:1.4.1}
-    Let $\L(\K^n)$ be the linear operator of norms. Then we say that $\|\cdot\| : \K^n \to [0, \infty)$ is a \emph{norm} if
+    Let $\L(\K^n)$ be the linear operator of norms. Then we say that $\|\cdot\| : \K^n \to [0, \infty)$ is a \emph{norm} if \index{norm}
     \begin{enumerate}
         \item For all $T \in \L(\K^n)$, $\|T\| = 0$ if and only if $T = 0$.
         \item For all $\alpha \in \K$ and $T \in \L(\K^n)$, $\|\alpha T\| = |\alpha|\|T\|$.
@@ -488,7 +488,7 @@ It follows from the Cauchy-Schwarz inequality that if $T \in \L(\K^n)$ is repres
 
 The convergence of a sequence of operators $T_k \in \L(\K^n)$ is then defined in terms of the operator norm as follows:
 
-\begin{definition}\label{definition:1.4.2}
+\begin{definition}\label{definition:1.4.2}\index{convergence}
     A sequence of linear operators $(T_k)_{k = 1}^{n}$ where for each $1 \leq k \leq n$, $T_k \in L(\R^n)$ is said to converge to a linear operator $T \in \L(\K^n)$ as $k \to \infty$, i.e.
     \begin{equation*}
         \lim_{k \to \infty} T_k = T
@@ -542,14 +542,14 @@ The convergence of a sequence of operators $T_k \in \L(\K^n)$ is then defined in
     \begin{equation*}
         \sum_{n = 0}^{\infty} \frac{a^nt_0^n}{n!} = e^{at_0}
     \end{equation*}
-    It follows from the Weierstrass M-Test that the series
+    It follows from the Weierstrass M-Test that the series \index{Weierstrass M-Test}
     \begin{equation*}
         \sum_{n = 0}^{\infty} \frac{T^n t^n}{n!}
     \end{equation*}
     is absolutely and uniformly convergent for all $|t| \leq t_0$.
 \end{proof}
 
-The exponential of the linear operator $T$ is then defined by the absolutely convergent series
+The exponential of the linear operator $T$ is then defined by the absolutely convergent series \index{absolutely convergent}
 \begin{equation*}
     e^T = \sum_{n = 0}^{\infty} \frac{T^n}{n!}
 \end{equation*}
@@ -562,7 +562,7 @@ Since our main interest in this chapter is the solution of linear systems of the
 we shall assume that the linear transformation $T$ on $\K^n$ is represented by the $n \times n$ matrix $A$ with respect to the standard basis for $\K^n$ and define the exponential $e^{At}$.
 
 \begin{definition}\label{definition:1.4.5}
-    Let $A$ be an $n \times n$ matrix. Then for $t \in \R$,
+    Let $A$ be an $n \times n$ matrix. Then for $t \in \R$, \index{exponential operator}
     \begin{equation*}
         e^{At} = \sum_{n = 1}^{\infty} \frac{A^n t^n}{n!}
     \end{equation*}
@@ -582,5 +582,106 @@ We next establish some basic properties of the linear transformation $e^T$ in or
         e^S = \lim_{n \to \infty} \sum_{k = 0}^{n} \frac{(PTP^{-1})^k}{k!} = P\lim_{n \to \infty} \sum_{k = 0}^{n} \frac{T^k}{k!}P^{-1} = Pe^TP^{-1}
     \end{equation*}
 \end{proof}
+
+\begin{corollary}\label{corollary:1.4.7}
+    If $D = P^{-1}AP$, where $D = \diag(\lambda_j)$, then $e^{At} = Pe^DP^{-1}$.
+\end{corollary}
+
+\begin{proof}
+    We have that
+    \begin{align*}
+        e^{At} &= \sum_{n = 0}^{\infty} \frac{A^n t^n}{n!} \\
+        &= \sum_{n = 0}^{\infty} \frac{(PDP^{-1})^n t^n}{n!} \\
+        &= \sum_{n = 0}^{\infty} \frac{PD^nP^{-1}t^n}{n!} \\
+        &= P\sum_{n = 0}^{\infty} \frac{D^n}{n!}t^n P^{-1} \\
+        &= Pe^D P^{-1}
+    \end{align*}
+    as required.
+\end{proof}
+
+\begin{proposition}\label{proposition:1.4.8}
+    If $S$ and $T$ are linear transformations on $\K^n$ which commute, i.e. satisfying $ST = TS$, then $e^{S + T} = e^S e^T$.
+\end{proposition}
+
+\begin{proof}
+    If $ST = TS$, then by the binomial theorem,
+    \begin{equation*}
+        (S + T)^n = n!\sum_{j + k = n} \frac{S^j T^k}{j!k!}
+    \end{equation*}
+    Therefore,
+    \begin{equation*}
+        e^{S + T} = \sum_{n = 0}^{\infty} \sum_{j + k = n} \frac{S^jT^k}{j!k!} = \sum_{j = 0}^{\infty} \frac{S^j}{j!} \sum_{k = 0}^{\infty} \frac{T^k}{k!} = e^S e^T
+    \end{equation*}
+    as desired.
+\end{proof}
+
+\begin{remark}\label{remark:1.4.9}
+    We have used the fact that the product of two absolutely convergent series is an absolute convergent series, which is given by its \emph{Cauchy product}.
+\end{remark}
+
+\begin{corollary}\label{corollary:1.4.10}
+    If $T$ is a linear transformation on $\K^n$, the inverse of the linear transformation $e^T$ is $(e^T)^{-1} = e^{-T}$.
+\end{corollary}
+
+\begin{proof}
+    Applying Proposition \ref{proposition:1.4.8} with $S = -T$, observe that
+    \begin{align*}
+        e^{-T + T} &= e^{-T}e^T \\
+        e^{0} &= e^{-T}e^T \\
+        I &= e^{-T}e^T
+    \end{align*}
+    Then right multiplying both sides by $(e^T)^{-1}$, we obtain that
+    \begin{align*}
+        I(e^T)^{-1} &= e^{-T}e^T(e^T)^{-1} \\
+        (e^T)^{-1} &= e^{-T}I \\
+        (e^T)^{-1} &= e^{-T}
+    \end{align*}
+    as required.
+\end{proof}
+
+\begin{corollary}\label{corollary:1.4.11}
+    If $A = \begin{bmatrix} a & -b \\ b & a \end{bmatrix}$, then $e^A = e^a\begin{bmatrix} \cos(b) & -\sin(b) \\ \sin(b) & \cos(b) \end{bmatrix}$, where the matrix on the right is known as the \emph{rotation matrix}. \index{rotation matrix}
+\end{corollary}
+
+\begin{proof}
+    Let $\lambda \in \K$ be of the form $\lambda = a + ib$. Then by induction,
+    \begin{equation*}
+        \begin{bmatrix} a & -b \\ b & a \end{bmatrix}^n = \begin{bmatrix} \Re(\lambda^n) & -\Im(\lambda^n) \\ \Im(\lambda^n) & \Re(\lambda^n) \end{bmatrix}
+    \end{equation*}
+    where $\Re$ and $\Im$ denote the real and imaginary parts of the complex number $\lambda$, respectively. Therefore,
+    \begin{align*}
+        e^A &= \sum_{n = 0}^{\infty} \begin{bmatrix} \Re\left(\frac{\lambda^n}{n!}\right) & -\Im\left(\frac{\lambda^n}{n!}\right) \\ \Im\left(\frac{\lambda^n}{n!}\right) & \Re\left(\frac{\lambda^n}{n!}\right) \end{bmatrix} \\
+        &= \begin{bmatrix} \Re(e^{\lambda}) & -\Im(e^{\lambda}) \\ \Im(e^{\lambda}) & \Re(e^{\lambda}) \end{bmatrix} \\
+        &= e^a\begin{bmatrix} \cos(b) & -\sin(b) \\ \sin(b) & \cos(b) \end{bmatrix}
+    \end{align*}
+\end{proof}
+
+\begin{corollary}\label{corollary:1.4.12}
+    If $A = \begin{bmatrix} a & b \\ 0 & a \end{bmatrix}$, then $e^A = e^a \begin{bmatrix} 1 & b \\ 0 & 1 \end{bmatrix}$.
+\end{corollary}
+
+\begin{proof}
+    Let $A = aI + B$, where $B = \begin{bmatrix} 0 & b \\ 0 & 0 \end{bmatrix}$. Then $aI$ commutes with $B$ by Proposition \ref{proposition:1.4.8}, and so 
+    \begin{equation*}
+        e^A = e^{aI} e^B = e^ae^B
+    \end{equation*}
+    and from the definition, $e^B = I + B$ since by direct computation, $B^2 = B^3 = \cdots = 0$.
+\end{proof}
+
+\section{The Fundamental Theorem for Linear Systems}
+
+Let $A$ be an $n \times n$ matrix. In this section, we prove the Fundamental Theorem of Linear Systems, which states tht for $\vec{x}_0 \in \K^n$, the initial value problem
+\begin{equation*}
+    \frac{d\vec{x}}{dt} = A\vec{x} \quad \vec{x}(0) = \vec{x}_0 \tag{1}
+\end{equation*}
+has a unique solution for all $t \in \R$, which is given by
+\begin{equation*}
+    \vec{x}(t) = \vec{x}_0e^{At} \tag{2}
+\end{equation*}
+Notice the similarity in the form of the solution (2) and the solution $x(t) = x_0e^{at}$ of the elementary first-order differential equation $\frac{dx}{dt} = ax$ and the initial condition $x(0) = x_0$.
+
+In order to prove the d
+
+\printindex
 
 \end{document}
